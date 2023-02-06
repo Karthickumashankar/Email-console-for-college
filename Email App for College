@@ -1,0 +1,116 @@
+package emailapp;
+
+import java.util.Scanner;
+
+public class Email {
+	private String Firstname;
+	private String Lastname;
+	private String Password;
+	private String Department;
+	private String Email;
+	private String AlternateEmail;
+	private int MailBoxcapacity=25;
+	private int DefaultPasswordLength=8;
+	private String collegesuffix="kpr.com";
+	
+	// constructor for receiving the f.n and l.n
+	public Email(String Firstname, String Lastname) {
+		this.Firstname=Firstname;
+		this.Lastname=Lastname;
+		
+		//call a method for dept
+		this.Department=SetDepartment();
+		
+		//combine all inputs for email
+		Email=Firstname.toLowerCase()+"."+Lastname.toLowerCase()+"@"+Department+"."+collegesuffix;
+		
+		//call the method for randompassword
+		this.Password=Randompassword(DefaultPasswordLength);
+		System.out.println("Your Password is : " + this.Password);
+	}
+	// select the dept
+	private String SetDepartment(){
+		System.out.println("HEY "+Firstname.toUpperCase()+"! HERE YOUR DEPARTMENT DETAILS:\n 1 FOR CSE\n 2 FOR EEE\n 3 FOR ECE\n 4 FOR AI&DS\n 5 FOR MECH\n 6 FOR CHEM\n 7 FOR BME\nChoose your Department "+Firstname+":) : ");
+		Scanner sc=new Scanner(System.in);
+		int dc=sc.nextInt();
+		if(dc==1) {
+			return "cse";
+		}
+		else if(dc==2) {
+			return "eee";
+		}
+		else if(dc==3) {
+			return "ece";
+		}
+		else if(dc==4) {
+			return "ad";
+		}
+		else if(dc==5) {
+			return "mech";
+		}
+		else if(dc==6) {
+			return "chem";
+		}
+		else if(dc==7) {
+			return "bme";
+		}
+		else {
+			return "Sorry, not available!";
+		}
+	}
+	// generate the random password
+	private String Randompassword(int length){
+		String passwordSet="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%";
+		char[] password=new char[length];
+		for(int i=0;i<length;i++) {
+			int random=(int)(Math.random()*passwordSet.length());
+			password[i]=passwordSet.charAt(random);
+		}
+		return new String(password);
+		
+	}
+	// set the mail box capacity
+	private void setMailBoxcapcity(int capacity) {
+		this.MailBoxcapacity=capacity;
+	}
+	// set the alternate Email
+	void setAlternateEmail(String altemail) {
+		this.AlternateEmail=altemail;
+	}
+	// change the password
+	private void changepassword(String pasword) {
+		this.Password=pasword;
+	}
+	
+	public int getMailBoxCapacity() { return this.MailBoxcapacity; }
+	public String getAlternateEmail() { return this.AlternateEmail; }
+	public String getpassword() { return this.Password; }
+	
+	public String ShowInfo() {
+		return "DISPLAY NAME: "+ Firstname +" "+ Lastname +
+				"\nCOLLEGE EMAIL: "+Email+
+				"\nMAILBOX CAPACITY: "+ MailBoxcapacity +"mb";
+	}
+}
+	
+	
+
+//main method class
+package emailapp;
+
+import java.util.Scanner;
+
+public class emailapp {
+	public static void main(String[] args) {
+		Scanner sc=new Scanner(System.in);
+		System.out.println("\n--------------------KPR INSTITUTE OF ENGINEERING AND TECHNOLOGY--------------------");
+		System.out.println("HEY STUDENT!\nTHANKS FOR JOINING TO OUR KPR COLLEGE.\nI AM YOUR EMAIL APP, LET I CREATE YOU AN EMAIL ID FOR SURVIVE");
+		System.out.println("Enter your Firstname: ");
+		String fn=sc.next();
+		System.out.println("Enter your Lastname: ");
+		String ln=sc.next();
+		Email one=new Email(fn,ln);
+		System.out.println(one.ShowInfo());
+		
+	}
+}
